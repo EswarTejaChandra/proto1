@@ -1,0 +1,309 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - ET Laundry{% endblock %}
+
+{% block extra_css %}
+<style>
+    .contact-header {
+        background: linear-gradient(135deg, #1a1a1a, #2c3e50);
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 3rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+    }
+
+    .contact-header h1 {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #00ff87, #60efff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .contact-header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        max-width: 600px;
+    }
+
+    .contact-quote {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2rem;
+        margin: 1.5rem 0;
+        background: linear-gradient(135deg, #00ff87, #60efff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        letter-spacing: 3px;
+        position: relative;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .contact-quote span {
+        color: #60efff;
+        font-weight: 700;
+    }
+
+    .contact-tagline {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+        font-family: 'Poppins', sans-serif;
+        font-style: italic;
+        margin-bottom: 1.5rem;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .contact-header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, transparent, #00ff87, transparent);
+    }
+
+    .contact-form {
+        background: white;
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        margin-bottom: 2rem;
+    }
+
+    .contact-info {
+        background: linear-gradient(135deg, #1a1a1a, #2c3e50);
+        color: white;
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        height: 100%;
+    }
+
+    .contact-info h3 {
+        font-family: 'Orbitron', sans-serif;
+        color: #00ff87;
+        margin-bottom: 1.5rem;
+    }
+
+    .contact-info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .contact-info-item i {
+        font-size: 1.5rem;
+        margin-right: 1rem;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 255, 135, 0.1);
+        border-radius: 50%;
+        color: #00ff87;
+    }
+
+    .contact-info-item h4 {
+        margin-bottom: 0.25rem;
+        color: #00ff87;
+    }
+
+    .contact-info-item p {
+        margin: 0;
+        opacity: 0.9;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: var(--text-color);
+    }
+
+    .form-control {
+        padding: 0.8rem;
+        border: 2px solid #e0e0e0;
+        border-radius: var(--border-radius);
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: #00ff87;
+        box-shadow: 0 0 0 0.2rem rgba(0, 255, 135, 0.25);
+    }
+
+    textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .submit-btn {
+        padding: 0.8rem 2rem;
+        font-size: 1.1rem;
+        background: linear-gradient(135deg, #00ff87, #60efff);
+        border: none;
+        border-radius: 25px;
+        color: #1a1a1a;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 255, 135, 0.3);
+    }
+
+    @media (max-width: 768px) {
+        .contact-header {
+            padding: 2rem 0;
+        }
+
+        .contact-header h1 {
+            font-size: 2rem;
+        }
+
+        .contact-form {
+            padding: 1.5rem;
+        }
+
+        .contact-info {
+            margin-top: 2rem;
+        }
+
+        .contact-quote {
+            font-size: 1.5rem;
+        }
+    }
+
+    /* Dark Theme Styles */
+    body.dark-theme .contact-form {
+        background: var(--dark-card);
+        border: 1px solid var(--dark-border);
+    }
+
+    body.dark-theme .form-control {
+        background-color: var(--dark-card);
+        border-color: var(--dark-border);
+        color: var(--dark-text);
+    }
+
+    body.dark-theme .form-control:focus {
+        background-color: var(--dark-card);
+        color: var(--dark-text);
+        border-color: #00ff87;
+        box-shadow: 0 0 0 0.2rem rgba(0, 255, 135, 0.15);
+    }
+
+    body.dark-theme .contact-info {
+        background: linear-gradient(135deg, rgba(0, 255, 135, 0.05), rgba(96, 239, 255, 0.05));
+        border: 1px solid var(--dark-border);
+    }
+
+    body.dark-theme .contact-info p {
+        color: var(--dark-text);
+        opacity: 0.9;
+    }
+
+    body.dark-theme .contact-info i {
+        color: #00ff87;
+    }
+
+    body.dark-theme .contact-header {
+        background: linear-gradient(135deg, rgba(0, 255, 135, 0.05), rgba(96, 239, 255, 0.05));
+    }
+
+    body.dark-theme .contact-subtitle {
+        color: var(--dark-text);
+    }
+
+    body.dark-theme textarea.form-control {
+        background-color: var(--dark-card);
+        color: var(--dark-text);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="contact-header">
+    <div class="container">
+        <h1>Contact <span class="et-brand">ET</span> Laundry</h1>
+        <p class="contact-quote">FRESH & CLEAN, <span>EVERY TIME</span></p>
+        <p class="contact-tagline">Experience the future of laundry care</p>
+        <p>Have questions or concerns? We're here to help. Fill out the form below and we'll get back to you as soon as possible.</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="contact-form">
+                <form method="POST" action="{{ url_for('contact') }}">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="problem" class="form-label">Your Message</label>
+                        <textarea class="form-control" id="problem" name="problem" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane me-2"></i>Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                
+                <div class="contact-info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h4>Address</h4>
+                        <p>123 bachupally signal road Street<br>miyapur City, Hyd 500090</p>
+                    </div>
+                </div>
+                
+                <div class="contact-info-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h4>Phone</h4>
+                        <p>+91 XXXXXXXX9</p>
+                    </div>
+                </div>
+                
+                <div class="contact-info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h4>Email</h4>
+                        <p>ETsupport@laundrymanagement.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-info-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h4>Business Hours</h4>
+                        <p>Monday - Friday: 8:00 AM - 8:00 PM<br>Sat/Sun: 9:00 AM - 6:00 PM<br></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

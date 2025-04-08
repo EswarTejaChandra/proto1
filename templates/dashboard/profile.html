@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block title %}Profile - ET Laundry{% endblock %}
+
+{% block extra_css %}
+<style>
+    .card-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        padding: 1rem 1.5rem;
+    }
+
+    .card-header h3 {
+        margin: 0;
+        color: #495057;
+    }
+        background: linear-gradient(135deg, #00ff87, #60efff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .profile-subtitle {
+        font-size: 1.2rem;
+        color: var(--text-color);
+        opacity: 0.9;
+    }
+
+    .profile-card {
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--box-shadow);
+        transition: transform 0.3s ease;
+    }
+
+    .profile-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .profile-card h3 {
+        font-family: 'Orbitron', sans-serif;
+        color: #00ff87;
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: var(--text-color);
+    }
+
+    .form-control {
+        border: 2px solid var(--border-color);
+        padding: 0.8rem;
+        border-radius: var(--border-radius);
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: #00ff87;
+        box-shadow: 0 0 0 0.2rem rgba(0, 255, 135, 0.25);
+    }
+
+    .btn-update {
+        background: linear-gradient(135deg, #00ff87, #60efff);
+        border: none;
+        padding: 0.8rem 2rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-update:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 255, 135, 0.3);
+    }
+
+    .profile-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .stat-item {
+        background: linear-gradient(135deg, rgba(0, 255, 135, 0.1), rgba(96, 239, 255, 0.1));
+        padding: 1.5rem;
+        border-radius: var(--border-radius);
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+
+    .stat-item:hover {
+        transform: translateY(-5px);
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #00ff87;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        color: var(--text-color);
+        opacity: 0.8;
+    }
+
+    /* Dark Theme Styles */
+    body.dark-theme .profile-card {
+        background: var(--dark-card);
+        border-color: var(--dark-border);
+    }
+
+    body.dark-theme .form-control {
+        background-color: var(--dark-card);
+        border-color: var(--dark-border);
+        color: var(--dark-text);
+    }
+
+    body.dark-theme .form-control:focus {
+        background-color: var(--dark-card);
+        color: var(--dark-text);
+    }
+
+    body.dark-theme .stat-item {
+        background: linear-gradient(135deg, rgba(0, 255, 135, 0.05), rgba(96, 239, 255, 0.05));
+    }
+
+    @media (max-width: 768px) {
+        .profile-title {
+            font-size: 2rem;
+        }
+        .profile-stats {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Profile Settings</h2>
+                    
+                    <form method="POST" class="mt-4">
+                        <div class="form-group mb-3">
+                            <label for="name">Full Name</label>
+                            <input type="text" class="form-control" id="name" name="name" 
+                                   value="{{ current_user.user_data.name }}" required>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" 
+                                   value="{{ current_user.user_data.email }}" required>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="current_password">Current Password</label>
+                            <input type="password" class="form-control" id="current_password" 
+                                   name="current_password">
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="new_password">New Password</label>
+                            <input type="password" class="form-control" id="new_password" 
+                                   name="new_password">
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="confirm_password">Confirm New Password</label>
+                            <input type="password" class="form-control" id="confirm_password" 
+                                   name="confirm_password">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100">Update Profile</button>
+                    </form>
+
+                    <div class="mt-4">
+                        <h4>Security Settings</h4>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>Two-Factor Authentication</h5>
+                                <p class="text-muted">
+                                    {% if current_user.mfa_enabled %}
+                                        Two-factor authentication is currently enabled for your account.
+                                    {% else %}
+                                        Add an extra layer of security to your account by enabling two-factor authentication.
+                                    {% endif %}
+                                </p>
+                                <a href="{{ url_for('enable_mfa') }}" class="btn btn-outline-primary">
+                                    {% if current_user.mfa_enabled %}
+                                        Manage 2FA
+                                    {% else %}
+                                        Enable 2FA
+                                    {% endif %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h4>Account Information</h4>
+                        <div class="card">
+                            <div class="card-body">
+                                <p><strong>Member since:</strong> {{ current_user.created_at.strftime('%B %d, %Y') }}</p>
+                                <p><strong>Last login:</strong> {{ current_user.last_login.strftime('%B %d, %Y %H:%M') if current_user.last_login else 'Never' }}</p>
+                                <p><strong>Loyalty points:</strong> {{ current_user.loyalty_points }}</p>
+                                {% if current_user.referral_code %}
+                                    <p><strong>Your referral code:</strong> <code>{{ current_user.referral_code }}</code></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
