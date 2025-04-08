@@ -1,0 +1,73 @@
+.booking-calendar {
+    margin: 20px 0;
+}
+
+.machine-slot {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.machine-slot.available {
+    background-color: #ffffff;
+}
+
+.machine-slot.booked {
+    background-color: #ffe6e6;
+    cursor: not-allowed;
+}
+
+body.dark-theme .machine-slot {
+    border-color: #404040;
+    color: #ffffff;
+}
+
+body.dark-theme .machine-slot.available {
+    background-color: rgba(0, 255, 135, 0.1);
+    color: #ffffff;
+}
+
+body.dark-theme .machine-slot.booked {
+    background-color: rgba(255, 0, 0, 0.1);
+    color: #ffffff;
+}
+
+body.dark-theme .booking-summary {
+    color: #ffffff;
+}
+
+.dashboard-stats {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.profile-section {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+/* Notification styles */
+.notifications-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .card {
+        margin-bottom: 15px;
+    }
+}
