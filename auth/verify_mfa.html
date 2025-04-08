@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Two-Factor Authentication</h2>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> Please enter the 6-digit code from your authenticator app to complete login.
+                    </div>
+
+                    <form method="POST" class="mt-4">
+                        <div class="form-group">
+                            <label for="code">Verification Code:</label>
+                            <input type="text" class="form-control form-control-lg" id="code" name="code" 
+                                   required pattern="[0-9]{6}" maxlength="6" placeholder="000000"
+                                   autocomplete="off" autofocus>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 mt-3">
+                            <i class="fas fa-check"></i> Verify Code
+                        </button>
+                    </form>
+
+                    <div class="mt-4 text-center">
+                        <a href="{{ url_for('login') }}" class="text-muted">
+                            <i class="fas fa-arrow-left"></i> Back to Login
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('code').addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
+</script>
+{% endblock %} 

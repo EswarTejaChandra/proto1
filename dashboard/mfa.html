@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Set Up Two-Factor Authentication</h2>
+                    
+                    <div class="text-center mb-4">
+                        <p>Scan this QR code with your authenticator app:</p>
+                        <img src="data:image/png;base64,{{ qr_code }}" alt="MFA QR Code" class="img-fluid mb-3">
+                        <p class="text-muted">Or enter this code manually: <code>{{ secret }}</code></p>
+                    </div>
+
+                    <form method="POST" class="mt-4">
+                        <div class="form-group">
+                            <label for="code">Enter the 6-digit code from your authenticator app:</label>
+                            <input type="text" class="form-control" id="code" name="code" required 
+                                   pattern="[0-9]{6}" maxlength="6" placeholder="000000">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 mt-3">Verify and Enable MFA</button>
+                    </form>
+
+                    <div class="mt-4">
+                        <h5>Instructions:</h5>
+                        <ol>
+                            <li>Download an authenticator app (Google Authenticator, Authy, etc.)</li>
+                            <li>Scan the QR code with your authenticator app</li>
+                            <li>Enter the 6-digit code shown in your app</li>
+                            <li>Click "Verify and Enable MFA"</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
